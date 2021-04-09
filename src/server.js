@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const routes = require('./routes');
 
 const server = express();
@@ -7,6 +8,9 @@ const host = 'localhost';
 
 // template engine
 server.set('view engine', 'ejs');
+
+// mudar a localização da pasta views
+server.set('views', path.join(__dirname, 'views'));
 
 // static files
 server.use(express.static('public'));
