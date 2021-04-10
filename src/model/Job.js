@@ -16,7 +16,7 @@ let data = [
   {
     id: 3,
     name: 'Auto Peças do João',
-    'daily-hours': 4,
+    'daily-hours': 2,
     'total-hours': 50,
     createdAt: Date.now(),
   },

@@ -1,6 +1,6 @@
 let data = {
-  name: 'Jakeliny',
-  avatar: 'https://avatars.githubusercontent.com/u/17316392?s=460&u=6912a91a70bc89745a2079fdcdad3bc3ce370f13&v=4',
+  name: 'João',
+  avatar: 'https://img.elo7.com.br/product/main/2A12948/caricatura-individual-de-rosto-festa.jpg',
   'monthly-budget': 5000,
   'days-per-week': 6,
   'hours-per-day': 6,
