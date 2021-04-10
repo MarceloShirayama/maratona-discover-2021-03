@@ -1,1 +1,7 @@
+# node
 node_modules/
+
+### Database sqlite ###
+*.db
+*.sqlite3
+*.sqlite

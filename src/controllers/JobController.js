@@ -3,12 +3,8 @@ const Job = require('../model/Job');
 const jobUtils = require('../utils/JobUtils');
 
 module.exports = {
-  save(req, res) {
-    const Jobs = Job.get();
-    const lastID = Jobs.length === 0 ? 0 : Jobs.length;
-    const createdAt = Date.now();
-
-    Job.create({ id: lastID + 1, ...req.body, createdAt });
+  async save(req, res) {
+    await Job.create({ ...req.body });
 
     return res.redirect('/');
   },
@@ -17,9 +13,9 @@ module.exports = {
     return res.render('job');
   },
 
-  show(req, res) {
-    const Jobs = Job.get();
-    const profile = Profile.get();
+  async show(req, res) {
+    const Jobs = await Job.get();
+    const profile = await Profile.get();
     const jobId = req.params.id;
     const job = Jobs.find((wantedJob) => Number(wantedJob.id) === Number(jobId));
 
@@ -32,39 +28,24 @@ module.exports = {
     return res.render('job-edit', { job });
   },
 
-  update(req, res) {
-    const Jobs = Job.get();
+  async update(req, res) {
     const jobId = req.params.id;
-    const job = Jobs.find((wantedJob) => Number(wantedJob.id) === Number(jobId));
-
-    if (!job) {
-      return res.send('<h1>Job not found</h1>');
-    }
 
     const updatedJob = {
-      ...job,
       name: req.body.name,
       'total-hours': req.body['total-hours'],
       'daily-hours': req.body['daily-hours'],
     };
 
-    const newJobs = Jobs.map((wantedJob) => {
-      if (Number(wantedJob.id) === Number(jobId)) {
-        // eslint-disable-next-line no-param-reassign
-        wantedJob = updatedJob;
-      }
-      return wantedJob;
-    });
-
-    Job.update(newJobs);
+    await Job.update(updatedJob, jobId);
 
     return res.redirect(`/job/${jobId}`);
   },
 
-  delete(req, res) {
+  async delete(req, res) {
     const jobId = req.params.id;
 
-    Job.delete(jobId);
+    await Job.delete(jobId);
 
     return res.redirect('/');
   },

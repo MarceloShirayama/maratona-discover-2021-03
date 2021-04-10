@@ -1,34 +1,63 @@
-let data = [
-  {
-    id: 1,
-    name: 'Pizzaria Guloso',
-    'daily-hours': 2,
-    'total-hours': 2,
-    createdAt: Date.now(),
-  },
-  {
-    id: 2,
-    name: 'OneTwoProject',
-    'daily-hours': 3,
-    'total-hours': 47,
-    createdAt: Date.now(),
-  },
-  {
-    id: 3,
-    name: 'Auto Peças do João',
-    'daily-hours': 2,
-    'total-hours': 50,
-    createdAt: Date.now(),
-  },
-];
+const Database = require('../db/config');
 
 module.exports = {
-  get: () => data,
-  update(newJob) {
-    data = newJob;
+  async get() {
+    const db = await Database();
+
+    const jobs = await db.all('SELECT * FROM jobs;');
+
+    await db.close();
+
+    return jobs.map((job) => ({
+      id: job.id,
+      name: job.name,
+      'daily-hours': job.daily_hours,
+      'total-hours': job.total_hours,
+      createdAt: job.created_at,
+    }));
   },
-  delete(jobId) {
-    data = data.filter((job) => Number(job.id) !== Number(jobId));
+
+  async update(updatedJob, jobId) {
+    const db = await Database();
+
+    await db.run(
+      `
+        UPDATE jobs SET
+        name = '${updatedJob.name}',
+        daily_hours = ${updatedJob['daily-hours']},
+        total_hours = ${updatedJob['total-hours']}
+        WHERE id = ${jobId}
+      ;`,
+    );
+
+    await db.close();
   },
-  create: (newJob) => data.push(newJob),
+
+  async delete(jobId) {
+    const db = await Database();
+
+    await db.run(`DELETE FROM jobs WHERE id = ${jobId};`);
+
+    await db.close();
+  },
+
+  async create(newJob) {
+    const db = await Database();
+
+    await db.run(
+      `
+        INSERT INTO jobs (
+          name,
+          'daily_hours',
+          'total_hours'
+        ) VALUES (
+          '${newJob.name}',
+          ${newJob['daily-hours']},
+          ${newJob['total-hours']}
+        )
+      ;`,
+    );
+
+    await db.close();
+  },
 };

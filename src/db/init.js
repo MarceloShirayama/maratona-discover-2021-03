@@ -2,7 +2,7 @@ const Database = require('./config');
 
 const initDb = {
   async init() {
-    const db = await Database;
+    const db = await Database();
 
     await db.exec(`
       DROP TABLE IF EXISTS profile;
@@ -25,7 +25,7 @@ const initDb = {
         name TEXT,
         daily_hours INT,
         total_hours INT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       );
     `);
 
@@ -36,14 +36,16 @@ const initDb = {
         monthly_budget,
         days_per_week,
         hours_per_day,
-        vacation_per_year
+        vacation_per_year,
+        value_hour
       ) VALUES (
         'João',
         'https://img.elo7.com.br/product/main/2A12948/caricatura-individual-de-rosto-festa.jpg',
         4000,
         6,
         4,
-        4
+        4,
+        70
       );
     `);
 
