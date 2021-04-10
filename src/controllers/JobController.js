@@ -8,7 +8,7 @@ module.exports = {
     const lastID = Jobs.length === 0 ? 0 : Jobs.length;
     const createdAt = Date.now();
 
-    Jobs.push({ id: lastID + 1, ...req.body, createdAt });
+    Job.create({ id: lastID + 1, ...req.body, createdAt });
 
     return res.redirect('/');
   },
