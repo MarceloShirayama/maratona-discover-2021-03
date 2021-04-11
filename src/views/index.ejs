@@ -32,11 +32,14 @@
         <h2 class="sr-only">Homepage</h2>
         <img id="logo" src="/images/logo.svg" alt="Logo" />
         <span id="notification">
-          <img src="/images/alert-octagon.svg" alt="Alerta" />
           <% if (freeHoursInDay > 0) { %>
-            Você tem <%= freeHoursInDay %>  horas livres no seu dia
+            <p>Você tem <%= freeHoursInDay %>  horas livres no seu dia</p>
+          <% } else if (freeHoursInDay < 0) { %>
+            <img src="/images/alert-octagon.svg" alt="Alerta" />
+            <p id="alert2">Você ultrapassou <%= Math.abs(freeHoursInDay) %> horas disponíveis do seu dia</p>
           <% } else { %>
-            Você não tem horas livres no seu dia
+            <img src="/images/alert-octagon.svg" alt="Alerta" />
+            <p id="alert3">Você não tem horas livres no seu dia</p>
           <% } %>
         </span>
         <a href="/profile" id="avatar-profile">

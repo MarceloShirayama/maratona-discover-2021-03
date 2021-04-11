@@ -25,6 +25,14 @@
   margin-right: 0.5rem; /* 8px of 16px root*/
 }
 
+#alert2 {
+  background-color: red;
+}
+
+#alert3 {
+  background-color: orange;
+}
+
 /* 
  * avatar
 /* -------------------------------------------------- */
