@@ -36,7 +36,7 @@
             <p>Você tem <%= freeHoursInDay %>  horas livres no seu dia</p>
           <% } else if (freeHoursInDay < 0) { %>
             <img src="/images/alert-octagon.svg" alt="Alerta" />
-            <p id="alert2">Você ultrapassou <%= Math.abs(freeHoursInDay) %> horas disponíveis do seu dia</p>
+            <p id="alert2">Você ultrapassou em <%= Math.abs(freeHoursInDay) %> horas as horas disponíveis do seu dia</p>
           <% } else { %>
             <img src="/images/alert-octagon.svg" alt="Alerta" />
             <p id="alert3">Você não tem horas livres no seu dia</p>
